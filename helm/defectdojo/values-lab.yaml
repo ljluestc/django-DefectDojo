@@ -1,0 +1,30 @@
+# Lab override for the repro-test kind cluster.
+# Ingress off (no controller guaranteed), NodePort so hyperping can reach it.
+host: defectdojo.localhost
+createSecret: true
+
+admin:
+  user: admin
+  password: "Admin1Defectdojo@lab"
+  secretKey: "e3ad10c54107eb113d2d44dc55c79efd0b7ea1a1df2b0e9d184c237255a7f012"
+  credentialAes256Key: "0e40f37a8a656fefe79dc77ddcb8fce1"
+
+django:
+  replicas: 1
+  ingress:
+    enabled: false
+    activateTLS: false
+  service:
+    type: NodePort
+
+celery:
+  worker:
+    replicas: 1
+  beat:
+    replicas: 1
+
+postgresql:
+  enabled: true
+
+valkey:
+  enabled: true
